@@ -1,0 +1,11 @@
+name: Odoo Git Guidelines / Commit Name
+on: 
+  workflow_call
+jobs:
+  check_git_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checking Commit Message
+        run: |
+          git log -1 --pretty=%B | grep -P "\[\w+\].+"

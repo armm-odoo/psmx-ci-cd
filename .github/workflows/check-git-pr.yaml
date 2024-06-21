@@ -1,0 +1,11 @@
+name: Odoo Git Guidelines / Pull Request Title
+on: 
+  workflow_call
+jobs:
+  check_git_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checking Commit Message
+        run: |
+            echo "${{github.event.pull_request.title}}" | grep -P "\[\w+\] \w+: .+"
