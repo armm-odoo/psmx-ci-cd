@@ -6,6 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Check if initial commit
+        id: check_initial_commit
+        run: |
+          commit_count=$(git rev-list --count HEAD)
+          echo "commit_count=$commit_count" >> $GITHUB_ENV
       - name: Checking Commit Message
         run: |
-          git log -1 --pretty=%B | grep -P "\[\w+\].+"
+          if [ "$commit_count" -eq 1 ]; then
+            echo "This is the initial commit."
+          else
+            git log -1 --pretty=%B | grep -P "\[\w+\].+"
+          fi
